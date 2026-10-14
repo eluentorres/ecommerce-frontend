@@ -1,6 +1,8 @@
 ﻿import { createBrowserRouter } from 'react-router-dom'
 import Layout from '../components/Layout/Layout'
 import PrivateRoute from '../components/PrivateRoute/PrivateRoute'
+import AdminRoute from '../components/AdminRoute'
+import AdminPage from '../pages/AdminPage/AdminPage'
 import HomePage from '../pages/HomePage/HomePage'
 import ProductsPage from '../pages/ProductsPage/ProductsPage'
 import ProductDetailPage from '../pages/ProductDetailPage/ProductDetailPage'
@@ -29,7 +31,9 @@ export const router = createBrowserRouter([
           { path: 'wishlist', element: <WishlistPage /> }
         ]
       },
+      { element: <AdminRoute />, children: [{ path: 'admin', element: <AdminPage /> }] },
       { path: '*', element: <NotFoundPage /> }
     ]
   }
 ])
+

@@ -12,7 +12,7 @@ function ProductDetailPage() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const token = useSelector((state) => state.auth.token)
+  const user = useSelector((state) => state.auth.user)
   const cartLoading = useSelector((state) => state.cart.loading)
   const wishlistLoading = useSelector((state) => state.wishlist.loading)
   const productIds = useSelector((state) => state.wishlist.productIds)
@@ -42,7 +42,7 @@ function ProductDetailPage() {
   }, [dispatch, token])
 
   const handleAddToCart = async () => {
-    if (!token) {
+    if (!user) {
       navigate('/login')
       return
     }
@@ -65,7 +65,7 @@ function ProductDetailPage() {
   }
 
   const handleWishlist = async () => {
-    if (!token) {
+    if (!user) {
       navigate('/login')
       return
     }
@@ -234,3 +234,4 @@ function ProductDetailPage() {
 }
 
 export default ProductDetailPage
+

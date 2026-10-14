@@ -36,10 +36,10 @@ function ProductDetailPage() {
   const esFavorito = productIds.includes(id)
 
   useEffect(() => {
-    if (token) {
+    if (user) {
       dispatch(fetchWishlist())
     }
-  }, [dispatch, token])
+  }, [dispatch, user])
 
   const handleAddToCart = async () => {
     if (!user) {
@@ -234,4 +234,5 @@ function ProductDetailPage() {
 }
 
 export default ProductDetailPage
+
 

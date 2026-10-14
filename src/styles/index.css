@@ -1,0 +1,917 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+/* ===== ESTILOS GENERALES ===== */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--color-background, #0a0a0a);
+  color: var(--color-text, #f5f5f5);
+  font-family: 'Inter', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* ===== HEADER ===== */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 82px;
+  padding: 20px 6%;
+  background: rgba(10, 10, 10, 0.96);
+  border-bottom: 1px solid var(--color-border, #303030);
+  backdrop-filter: blur(14px);
+}
+
+.logo {
+  color: #ffffff;
+  font-size: 27px;
+  font-weight: 900;
+  letter-spacing: -1.5px;
+  text-transform: uppercase;
+}
+
+.logo:hover {
+  color: var(--color-primary, #c6ff00);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+.nav a {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.nav a:hover,
+.nav a.active {
+  color: var(--color-primary, #c6ff00);
+}
+
+.menu-button {
+  display: none;
+  color: #ffffff;
+  background: transparent;
+  border: none;
+  font-size: 28px;
+}
+
+/* ===== CONTENIDO PRINCIPAL ===== */
+
+.main-content {
+  width: 100%;
+  max-width: 1500px;
+  min-height: 75vh;
+  margin: 0 auto;
+  padding: 35px 5%;
+}
+
+/* ===== PORTADA NÃ˜VA ===== */
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 650px;
+  padding: 70px 7%;
+  margin-bottom: 85px;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.55) 0%,
+      rgba(0, 0, 0, 0.15) 55%,
+      rgba(0, 0, 0, 0) 100%
+    ),
+    url('/nova-hero.png') center center / cover no-repeat;
+  border: 1px solid var(--color-border, #303030);
+}
+
+.hero-label,
+.section-label {
+  color: var(--color-primary, #c6ff00);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.hero .hero-label {
+  margin-bottom: 25px;
+}
+
+.hero h1 {
+  max-width: 750px;
+  margin: 0 0 24px;
+  font-size: clamp(44px, 7vw, 105px);
+  font-weight: 900;
+  line-height: 0.98;
+  letter-spacing: -4px;
+  text-transform: uppercase;
+}
+
+.hero p:not(.hero-label) {
+  max-width: 450px;
+  margin-bottom: 35px;
+  color: #e5e5e5;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+/* ===== BOTONES REUTILIZABLES ===== */
+
+.btn-primary,
+.btn-secondary,
+.btn-danger {
+  display: inline-block;
+  padding: 17px 30px;
+  border-radius: 0;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-align: center;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    border-color 0.2s,
+    transform 0.2s;
+}
+
+.btn-primary {
+  background: var(--color-primary, #c6ff00);
+  color: #080808;
+  border: 1px solid var(--color-primary, #c6ff00);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: transparent;
+  color: var(--color-primary, #c6ff00);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid #777777;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  border-color: var(--color-primary, #c6ff00);
+  color: var(--color-primary, #c6ff00);
+  transform: translateY(-2px);
+}
+
+.btn-danger {
+  background: #c62828;
+  color: #ffffff;
+  border: 1px solid #c62828;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: transparent;
+  color: #ff7777;
+  border-color: #ff7777;
+  transform: translateY(-2px);
+}
+
+.btn-primary:disabled,
+.btn-secondary:disabled,
+.btn-danger:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ===== TÃTULOS ===== */
+
+.featured-products h2,
+.products-page h1 {
+  margin-bottom: 30px;
+  font-size: clamp(28px, 4vw, 45px);
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  text-transform: uppercase;
+}
+
+.products-page > p {
+  color: var(--color-muted, #999999);
+}
+
+/* ===== CATÃLOGO ===== */
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 30px;
+}
+
+/* ===== TARJETAS DE PRODUCTOS ===== */
+
+.product-card {
+  min-width: 0;
+  padding: 0 0 20px;
+  background: var(--color-surface, #171717);
+  border: 1px solid var(--color-border, #303030);
+  overflow: hidden;
+  transition:
+    border-color 0.3s,
+    transform 0.3s;
+}
+
+.product-card:hover {
+  border-color: var(--color-primary, #c6ff00);
+  transform: translateY(-5px);
+}
+
+.product-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  background: #252525;
+  filter: grayscale(20%);
+  transition:
+    filter 0.3s,
+    transform 0.3s;
+}
+
+.product-card:hover img {
+  filter: grayscale(0);
+  transform: scale(1.025);
+}
+
+.product-card h3 {
+  margin: 20px 18px 8px;
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.product-card p {
+  margin: 0 18px 18px;
+  color: var(--color-primary, #c6ff00);
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.product-card a {
+  display: inline-block;
+  margin: 0 18px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--color-primary, #c6ff00);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.product-card a:hover {
+  color: var(--color-primary, #c6ff00);
+}
+
+/* ===== BUSCADOR ===== */
+
+.search-input {
+  display: block;
+  width: 100%;
+  max-width: 500px;
+  padding: 17px 20px;
+  margin: 25px 0;
+  background: #171717;
+  color: #ffffff;
+  border: 1px solid #444444;
+  border-radius: 0;
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: var(--color-primary, #c6ff00);
+}
+
+.search-input::placeholder {
+  color: #888888;
+}
+
+/* ===== FORMULARIOS LOGIN Y REGISTRO ===== */
+
+.products-page:has(.form-group) {
+  width: 100%;
+  max-width: 560px;
+  margin: 40px auto 80px;
+}
+
+.products-page:has(.form-group) h1 {
+  margin-bottom: 14px;
+}
+
+.products-page:has(.form-group) > p:not(.section-label) {
+  line-height: 1.7;
+}
+
+.products-page:has(.form-group) form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  margin: 32px 0;
+  padding: 36px;
+  background: #151515;
+  border: 1px solid #333333;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-group label {
+  color: #f5f5f5;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.form-group input {
+  width: 100%;
+  min-height: 52px;
+  padding: 14px 16px;
+  background: #0a0a0a;
+  color: #ffffff;
+  border: 1px solid #444444;
+  border-radius: 0;
+  outline: none;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.form-group input::placeholder {
+  color: #777777;
+}
+
+.form-group input:focus {
+  border-color: #c6ff00;
+  box-shadow: 0 0 0 2px rgba(198, 255, 0, 0.12);
+}
+
+.form-group input[aria-invalid='true'] {
+  border-color: #ff6666;
+}
+
+.form-error {
+  margin: 0;
+  color: #ff7777;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.products-page:has(.form-group) form button {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.products-page:has(.form-group) > p[role='status'] {
+  padding: 14px 16px;
+  background: #1a1a1a;
+  border-left: 3px solid #c6ff00;
+  color: #ffffff;
+  overflow-wrap: anywhere;
+}
+
+.products-page:has(.form-group) > p a,
+.products-page:has(.form-group) > a {
+  color: #c6ff00;
+  font-weight: 700;
+}
+
+.products-page:has(.form-group) > p a:hover,
+.products-page:has(.form-group) > a:hover {
+  text-decoration: underline;
+}
+
+/* ===== DETALLE DEL PRODUCTO ===== */
+
+.product-detail > a {
+  color: var(--color-primary, #c6ff00);
+  font-size: 13px;
+}
+
+.product-detail-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 7%;
+  margin-top: 40px;
+}
+
+.product-detail-image {
+  display: block;
+  width: 100%;
+  max-height: 700px;
+  object-fit: cover;
+  background: #222222;
+}
+
+.product-detail-info h1 {
+  font-size: clamp(32px, 4vw, 58px);
+  font-weight: 900;
+  letter-spacing: -2px;
+  text-transform: uppercase;
+}
+
+.product-detail-info > p {
+  color: #aaaaaa;
+  line-height: 1.8;
+}
+
+.product-detail-info h2 {
+  color: var(--color-primary, #c6ff00);
+  font-size: 35px;
+}
+
+/* ===== SELECTOR DE CANTIDAD ===== */
+
+.quantity-selector {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  margin: 30px 0;
+}
+
+.quantity-selector button {
+  width: 45px;
+  height: 45px;
+  background: #222222;
+  color: #ffffff;
+  border: 1px solid #444444;
+}
+
+.quantity-selector button:hover:not(:disabled) {
+  border-color: var(--color-primary, #c6ff00);
+}
+
+.quantity-selector button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.quantity-selector span {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* ===== RESEÃ‘AS ===== */
+
+.reviews-section {
+  margin-top: 75px;
+  padding-top: 35px;
+  border-top: 1px solid #333333;
+}
+
+.reviews-section h2 {
+  margin-bottom: 25px;
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 800;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+}
+
+.reviews-section > p {
+  color: #aaaaaa;
+}
+
+.reviews-list {
+  display: grid;
+  gap: 16px;
+}
+
+.review-card {
+  padding: 24px;
+  background: #171717;
+  border: 1px solid #333333;
+}
+
+.star-rating {
+  display: flex;
+  gap: 5px;
+  font-size: 22px;
+}
+
+.review-card p {
+  margin-bottom: 0;
+  color: #dddddd;
+  line-height: 1.7;
+}
+
+/* ===== PÃGINA 404 ===== */
+
+.not-found-page {
+  padding: 100px 20px;
+  text-align: center;
+}
+
+.not-found-page h1 {
+  margin: 0;
+  color: var(--color-primary, #c6ff00);
+  font-size: clamp(90px, 15vw, 180px);
+  font-weight: 900;
+}
+
+.not-found-page p {
+  margin-bottom: 35px;
+  color: var(--color-muted, #999999);
+}
+
+/* ===== FOOTER ===== */
+
+.footer {
+  margin-top: 70px;
+  padding: 55px 6%;
+  background: #050505;
+  border-top: 1px solid #333333;
+  text-align: center;
+}
+
+.footer p:first-child {
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.footer p:last-child {
+  color: #888888;
+  font-size: 12px;
+}
+
+/* ===== TABLETS ===== */
+
+@media (max-width: 1000px) {
+  .products-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .nav {
+    gap: 20px;
+  }
+}
+
+/* ===== MÃ“VILES ===== */
+
+@media (max-width: 768px) {
+  .header {
+    min-height: 70px;
+    padding: 15px 5%;
+  }
+
+  .menu-button {
+    display: block;
+  }
+
+  .nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding: 25px;
+    background: #111111;
+    border-bottom: 1px solid #333333;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav.abierto {
+    display: flex;
+  }
+
+  .main-content {
+    padding: 20px 4%;
+  }
+
+  .hero {
+    min-height: 550px;
+    padding: 45px 7%;
+    margin-bottom: 55px;
+    background-position: 65% center;
+  }
+
+  .hero h1 {
+    font-size: clamp(38px, 9vw, 65px);
+    letter-spacing: -2px;
+  }
+
+  .hero p:not(.hero-label) {
+    font-size: 14px;
+  }
+
+  .products-grid {
+    gap: 12px;
+  }
+
+  .product-card h3 {
+    margin: 15px 12px 8px;
+    font-size: 13px;
+  }
+
+  .product-card p,
+  .product-card a {
+    margin-left: 12px;
+  }
+
+  .product-detail-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .products-page:has(.form-group) {
+    margin: 20px auto 50px;
+  }
+
+  .products-page:has(.form-group) form {
+    padding: 22px;
+  }
+}
+
+@media (max-width: 380px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== NÃ˜VA 2040 â€” CATÃLOGO MINIMALISTA ===== */
+
+.products-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 36px 22px;
+  margin-top: 36px;
+}
+
+.product-card {
+  padding: 0 0 12px;
+  background: transparent;
+  border: none;
+  overflow: hidden;
+  transition: none;
+}
+
+.product-card:hover {
+  border-color: transparent;
+  transform: none;
+}
+
+.product-card .product-image-link {
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  background: #252525;
+}
+
+.product-card img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  background: #252525;
+  filter: none;
+  transition: transform 0.45s ease;
+}
+
+.product-card:hover img {
+  filter: none;
+  transform: scale(1.035);
+}
+
+.product-card h3 {
+  margin: 16px 0 6px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.product-card p {
+  margin: 0;
+  color: #bcbcbc;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.product-card .product-link {
+  display: none;
+}
+
+@media (max-width: 1000px) {
+  .products-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px 14px;
+  }
+}
+
+@media (max-width: 600px) {
+  .products-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px 10px;
+  }
+
+  .product-card h3 {
+    margin: 12px 0 5px;
+    font-size: 10px;
+  }
+
+  .product-card p {
+    margin: 0;
+    font-size: 12px;
+  }
+}
+
+
+/* ===== NÃ˜VA 2040 â€” CARRITO ===== */
+
+.nova-cart {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.nova-cart-items {
+  display: grid;
+  gap: 18px;
+  margin: 40px 0;
+}
+
+.nova-cart-item {
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  gap: 30px;
+  padding: 20px;
+  background: #151515;
+  border: 1px solid #303030;
+}
+
+.nova-cart-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #252525;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #c6ff00;
+  font-weight: 900;
+  letter-spacing: 3px;
+}
+
+.nova-cart-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.nova-cart-details h3 {
+  margin-top: 5px;
+  font-size: 19px;
+  text-transform: uppercase;
+}
+
+.nova-cart-details p {
+  color: #aaa;
+  font-size: 13px;
+}
+
+.nova-cart-details .nova-cart-price {
+  color: #c6ff00;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.nova-cart-details button {
+  margin-top: 15px;
+  padding: 12px 20px;
+}
+
+.nova-cart-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 30px 0;
+  border-top: 1px solid #444;
+}
+
+.nova-cart-summary h2 {
+  color: #c6ff00;
+  font-size: 26px;
+}
+
+.nova-cart-empty {
+  padding: 60px 0;
+}
+
+.nova-cart-empty p {
+  margin-bottom: 30px;
+  color: #aaa;
+}
+
+@media (max-width: 600px) {
+  .nova-cart-item {
+    grid-template-columns: 110px 1fr;
+    gap: 15px;
+    padding: 12px;
+  }
+
+  .nova-cart-details h3 {
+    font-size: 14px;
+  }
+
+  .nova-cart-summary {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* ===== NÃ˜VA 2040 â€” BOTONES FAVORITOS ===== */
+
+.product-detail-info > button:not(.btn-primary),
+.products-page button:not(.btn-primary):not(.btn-secondary):not(.btn-danger) {
+  padding: 17px 30px;
+  background: transparent;
+  color: #c6ff00;
+  border: 1px solid #c6ff00;
+  border-radius: 0;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.product-detail-info > button:not(.btn-primary):hover,
+.products-page button:not(.btn-primary):not(.btn-secondary):not(.btn-danger):hover {
+  background: #c6ff00;
+  color: #080808;
+}
+
+
+/* NØVA 2040 — Botón cerrar sesión */
+button.logout-button,
+button.btn-logout {
+  background: transparent;
+  color: #c6ff00;
+  border: 1px solid #c6ff00;
+  padding: 14px 24px;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+button.logout-button:hover,
+button.btn-logout:hover {
+  background: #c6ff00;
+  color: #080808;
+}
+

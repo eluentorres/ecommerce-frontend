@@ -2,10 +2,14 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
 
 function PrivateRoute() {
-  const token = useSelector((state) => state.auth.token)
+  const { user, initialized } = useSelector((state) => state.auth)
   const location = useLocation()
 
-  if (!token) {
+  if (!initialized) {
+    return <p>Comprobando sesión...</p>
+  }
+
+  if (!user) {
     return <Navigate to="/login" state={{ from: location }} replace />
   }
 

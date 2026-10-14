@@ -13,7 +13,7 @@ export const loginThunk = createAsyncThunk(
   async (credentials, { rejectWithValue }) => {
     try {
       const data = await login(credentials)
-      localStorage.setItem('token', data.token)
+      localStorage.removeItem('token')
       return data
     } catch (error) {
       return rejectWithValue(getError(error))
@@ -44,12 +44,24 @@ export const fetchMe = createAsyncThunk(
   }
 )
 
+export const logoutThunk = createAsyncThunk(
+  'auth/logout',
+  async (_, { dispatch }) => {
+    try {
+      await api.post('/api/auth/logout')
+    } finally {
+      dispatch(logout())
+    }
+  }
+)
+
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
-    token: localStorage.getItem('token'),
+    token: null,
     user: null,
     loading: false,
+    initialized: false,
     error: null
   },
   reducers: {
@@ -57,6 +69,7 @@ const authSlice = createSlice({
       localStorage.removeItem('token')
       state.token = null
       state.user = null
+      state.initialized = true
       state.error = null
       state.loading = false
     }
@@ -69,7 +82,7 @@ const authSlice = createSlice({
       })
       .addCase(loginThunk.fulfilled, (state, action) => {
         state.loading = false
-        state.token = action.payload.token
+        state.initialized = true
         state.user = action.payload.user
       })
       .addCase(loginThunk.rejected, (state, action) => {
@@ -89,9 +102,11 @@ const authSlice = createSlice({
       })
       .addCase(fetchMe.fulfilled, (state, action) => {
         state.user = action.payload
+        state.initialized = true
       })
       .addCase(fetchMe.rejected, (state) => {
         state.user = null
+        state.initialized = true
       })
   }
 })

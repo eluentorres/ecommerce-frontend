@@ -1,5 +1,5 @@
 ﻿import { useDispatch, useSelector } from 'react-redux'
-import { logout } from '../../store/authSlice'
+import { logoutThunk } from '../../store/authSlice'
 import { useNavigate } from 'react-router-dom'
 
 function ProfilePage() {
@@ -8,7 +8,7 @@ function ProfilePage() {
   const { user } = useSelector((state) => state.auth)
 
   const handleLogout = () => {
-    dispatch(logout())
+    dispatch(logoutThunk())
     navigate('/login', { replace: true })
   }
 
@@ -36,4 +36,5 @@ function ProfilePage() {
 }
 
 export default ProfilePage
+
 

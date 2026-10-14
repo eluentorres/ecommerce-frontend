@@ -1,17 +1,17 @@
-﻿import { useState } from 'react'
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { logout } from '../../store/authSlice'
+import { logoutThunk } from '../../store/authSlice'
 
 function Header() {
   const dispatch = useDispatch()
-  const token = useSelector((state) => state.auth.token)
+  const user = useSelector((state) => state.auth.user)
   const [menuAbierto, setMenuAbierto] = useState(false)
 
   const cerrarMenu = () => setMenuAbierto(false)
 
   const cerrarSesion = () => {
-    dispatch(logout())
+    dispatch(logoutThunk())
     cerrarMenu()
   }
 
@@ -40,7 +40,7 @@ function Header() {
           Colección
         </NavLink>
 
-        {token ? (
+        {user ? (
           <>
             <NavLink to="/cart" onClick={cerrarMenu}>
               Carrito 🛒

@@ -1,14 +1,15 @@
-﻿import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { getProducts } from '../../api/products'
-import { fetchCart, removeFromCart, checkout } from '../../store/cartSlice'
+import { fetchCart, removeFromCart } from '../../store/cartSlice'
 
 function CartPage() {
   const dispatch = useDispatch()
   const { items, loading, error, lastOrder } = useSelector((state) => state.cart)
   const [products, setProducts] = useState([])
   const [message, setMessage] = useState('')
+  const [paying, setPaying] = useState(false)
 
   useEffect(() => {
     dispatch(fetchCart())
@@ -32,12 +33,29 @@ function CartPage() {
 
   const handleCheckout = async () => {
     setMessage('')
+    setPaying(true)
 
     try {
-      await dispatch(checkout()).unwrap()
-      setMessage('¡Pedido realizado correctamente!')
-    } catch {
-      setMessage('No se pudo finalizar la compra.')
+      const apiUrl = import.meta.env.VITE_API_URL
+
+      const response = await fetch(`${apiUrl}/api/stripe/create-checkout-session`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+
+      const result = await response.json()
+
+      if (!response.ok || !result?.data?.url) {
+        throw new Error(result?.error?.message || 'No se pudo iniciar el pago')
+      }
+
+      window.location.assign(result.data.url)
+    } catch (error) {
+      setMessage(error.message || 'No se pudo conectar con Stripe.')
+      setPaying(false)
     }
   }
 
@@ -103,10 +121,10 @@ function CartPage() {
             <button
               type="button"
               className="btn-primary"
-              disabled={loading}
+              disabled={loading || paying}
               onClick={handleCheckout}
             >
-              FINALIZAR COMPRA →
+              PAGAR CON STRIPE →
             </button>
           </div>
         </>

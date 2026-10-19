@@ -1,6 +1,6 @@
-import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+﻿import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import { loginThunk } from '../../store/authSlice'
 import FormInput from '../../components/FormInput/FormInput'
 import Button from '../../components/Button/Button'
@@ -10,36 +10,23 @@ function LoginPage() {
   const navigate = useNavigate()
   const { loading, error } = useSelector((state) => state.auth)
 
-  const [form, setForm] = useState({
-    email: '',
-    password: ''
-  })
-
+  const [form, setForm] = useState({ email: '', password: '' })
   const [errores, setErrores] = useState({})
   const [mensaje, setMensaje] = useState('')
 
   const handleChange = (e) => {
-    const { name, value } = e.target
-
-    setForm((anterior) => ({
-      ...anterior,
-      [name]: value
-    }))
-
-    setErrores((anterior) => ({
-      ...anterior,
-      [name]: ''
-    }))
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+    setErrores((prev) => ({ ...prev, [e.target.name]: '' }))
   }
 
   const handleSubmit = async (e) => {
-    setMensaje('')
     e.preventDefault()
+    setMensaje('')
 
     const nuevosErrores = {}
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) {
-      nuevosErrores.email = 'Introduce un email válido'
+      nuevosErrores.email = 'Introduce un correo válido'
     }
 
     if (!form.password) {
@@ -47,8 +34,7 @@ function LoginPage() {
     }
 
     setErrores(nuevosErrores)
-
-    if (Object.keys(nuevosErrores).length > 0) return
+    if (Object.keys(nuevosErrores).length) return
 
     try {
       const resultado = await dispatch(loginThunk({
@@ -56,24 +42,24 @@ function LoginPage() {
         password: form.password
       })).unwrap()
 
-      setMensaje(`¡Bienvenido a NØVA 2040, ${resultado.user?.name || 'usuario'}!`)
+      const nombre = resultado.user?.name || 'usuario'
+      const bienvenida = `¡Enhorabuena, ${nombre}! Ya puedes comprar en NØVA 2040.`
 
-      setTimeout(() => {
-        navigate('/products', { replace: true })
-      }, 1200)
+      setMensaje(bienvenida)
+
+      navigate('/', {
+        replace: true,
+        state: { bienvenida }
+      })
     } catch {
-      // Redux muestra el error del inicio de sesión.
+      // El error se muestra desde Redux.
     }
   }
-
-
 
   return (
     <section className="products-page">
       <p className="section-label">NØVA / ACCOUNT</p>
-
       <h1>INICIAR SESIÓN</h1>
-
       <p>Accede a tu cuenta NØVA.</p>
 
       <form onSubmit={handleSubmit} noValidate>
@@ -84,7 +70,6 @@ function LoginPage() {
           value={form.email}
           onChange={handleChange}
           error={errores.email}
-          autoFocus
           placeholder="tu@email.com"
         />
 

@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { register } from '../../api/auth'
 import FormInput from '../../components/FormInput/FormInput'
 import Button from '../../components/Button/Button'
 
 function RegisterPage() {
+  const navigate = useNavigate()
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -69,6 +70,7 @@ function RegisterPage() {
       })
 
       setRegistrado(true)
+      navigate('/login', { replace: true })
       setMensaje('¡Cuenta creada correctamente! Ya puedes iniciar sesión.')
 
       setForm({

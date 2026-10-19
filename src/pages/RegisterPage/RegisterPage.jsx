@@ -118,7 +118,7 @@ function RegisterPage() {
         />
 
         <FormInput
-          label="Contraseña"
+          label="Contraseña (mínimo 8 caracteres)"
           name="password"
           type="password"
           value={form.password}

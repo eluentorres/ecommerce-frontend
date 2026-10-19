@@ -1,13 +1,14 @@
-﻿import { useState } from 'react'
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, Navigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { loginThunk } from '../../store/authSlice'
 import FormInput from '../../components/FormInput/FormInput'
 import Button from '../../components/Button/Button'
 
 function LoginPage() {
   const dispatch = useDispatch()
-  const { token, loading, error } = useSelector((state) => state.auth)
+  const navigate = useNavigate()
+  const { loading, error } = useSelector((state) => state.auth)
 
   const [form, setForm] = useState({
     email: '',
@@ -15,6 +16,7 @@ function LoginPage() {
   })
 
   const [errores, setErrores] = useState({})
+  const [mensaje, setMensaje] = useState('')
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -30,7 +32,8 @@ function LoginPage() {
     }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    setMensaje('')
     e.preventDefault()
 
     const nuevosErrores = {}
@@ -47,15 +50,23 @@ function LoginPage() {
 
     if (Object.keys(nuevosErrores).length > 0) return
 
-    dispatch(loginThunk({
-      email: form.email.trim(),
-      password: form.password
-    }))
+    try {
+      const resultado = await dispatch(loginThunk({
+        email: form.email.trim(),
+        password: form.password
+      })).unwrap()
+
+      setMensaje(`¡Bienvenido a NØVA 2040, ${resultado.user?.name || 'usuario'}!`)
+
+      setTimeout(() => {
+        navigate('/products', { replace: true })
+      }, 1200)
+    } catch {
+      // Redux muestra el error del inicio de sesión.
+    }
   }
 
-  if (token) {
-    return <Navigate to="/profile" replace />
-  }
+
 
   return (
     <section className="products-page">
@@ -93,6 +104,7 @@ function LoginPage() {
       </form>
 
       {error && <p role="alert">{error}</p>}
+      {mensaje && <p role="status">{mensaje}</p>}
 
       <p>
         ¿Todavía no tienes cuenta?{' '}

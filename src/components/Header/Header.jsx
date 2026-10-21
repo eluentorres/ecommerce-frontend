@@ -1,3 +1,4 @@
+
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
@@ -54,6 +55,12 @@ function Header() {
               Mi perfil
             </NavLink>
 
+            {user?.role === 'ADMIN' && (
+              <NavLink to="/admin" onClick={cerrarMenu}>
+                Panel Admin
+              </NavLink>
+            )}
+
             <button type="button" className="btn-logout" onClick={cerrarSesion}>
               Cerrar sesión
             </button>
@@ -75,4 +82,5 @@ function Header() {
 }
 
 export default Header
+
 
